@@ -1,4 +1,5 @@
 import re
+import datetime
 from src.masks import get_mask_card_number, get_mask_account
 
 
@@ -15,5 +16,13 @@ def mask_account_card(bank_details: str) -> str:
     return masked_number
 
 
+def get_date(input_date: str) -> str:
+    """Функция принимает на вход строку с датой в формате ISO 8601 и возвращает
+    строку с датой в формате 'ДД.ММ.ГГГГ'"""
+    formated_date = datetime.datetime.fromisoformat(input_date)
+    return formated_date.strftime("%d.%m.%Y")
+
+
 if __name__ == "__main__":
     print(mask_account_card("Visa Gold 5999414228426353"))
+    print(get_date("2024-03-11T02:26:18.671407"))
