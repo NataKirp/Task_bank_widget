@@ -36,7 +36,10 @@ def test_get_date():
 @pytest.mark.parametrize('input_date',['20202025',
                                        '1/1/2026',
                                        '15.08.25',
-                                       'Wed, 12 April 2023'
+                                       'Wed, 12 April 2023',
+                                       '2024-13-11T02:26:18.671407'
+                                       '152000',
+                                       ''
                                        ])
 def test_get_date_wrong_date(input_date):
     with pytest.raises(ValueError):
