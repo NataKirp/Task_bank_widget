@@ -27,8 +27,11 @@ def sort_by_date(list_of_dicts: list[dict], descending: bool = True) -> list[dic
     :return: Отсортированный список
     """
 
-    return sorted(list_of_dicts, key=lambda item: (datetime.datetime.fromisoformat(item["date"]), item["id"]),
-                  reverse=descending)
+    return sorted(
+        list_of_dicts,
+        key=lambda item: (datetime.datetime.fromisoformat(item["date"]), item["id"]),
+        reverse=descending,
+    )
 
 
 # if __name__ == "__main__":

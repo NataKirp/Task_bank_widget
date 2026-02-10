@@ -10,14 +10,16 @@ def mask_account_card(bank_details: str) -> str:
     bank_details_number = "".join(re.findall(r"\d", bank_details))
     if bank_details.startswith("Счет"):
         masked_number = f"{bank_details_type} {get_mask_account(bank_details_number)}"
-    elif bank_details_type.startswith("Master") or bank_details_type.startswith("Visa") or bank_details_type.startswith("Maestro"):
+    elif (
+        bank_details_type.startswith("Master")
+        or bank_details_type.startswith("Visa")
+        or bank_details_type.startswith("Maestro")
+    ):
         masked_number = (
             f"{bank_details_type} {get_mask_card_number(bank_details_number)}"
         )
     else:
-        raise ValueError(
-            "Неверное обозначение карты или счета"
-        )
+        raise ValueError("Неверное обозначение карты или счета")
     return masked_number
 
 
