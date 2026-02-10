@@ -11,16 +11,20 @@ Python >= 3.14
 
 ## Установка
 1. Клонируйте репозиторий:
-```
-git clone https://github.com/NataKirp/Task_bank_widget.git@github.com:NataKirp/Task_bank_widget.git
-```
+    ```
+    git clone https://github.com/NataKirp/Task_bank_widget.git@github.com:NataKirp/Task_bank_widget.git
+    ```
 2. Перейдите в папку проекта:
-```
-cd Task_bank_widget
-```
-3. Зависимости:
+    ```
+    cd Task_bank_widget
+    ```
+3. Активируйте виртуальное окружение через __Poetry__  
 
-Установка не требуется
+
+4. Зависимости:
+
+В случае отсутствия менеджера проектов __Poetry__, установите зависимости
+из списка зависимостей в файле __pyproject.toml__
 ```
 # Создание: 
 pip freeze > requirements.txt
@@ -28,7 +32,6 @@ pip freeze > requirements.txt
 # Установка:
 pip install -r requirements.txt
 ```
-
 ## Функционал проекта
 ### Модуль masks
 Содержит функции для маскировки номера карты и номера счета:
@@ -132,6 +135,39 @@ Visa Gold 5999414228426353
 {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
 {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
 ```
+
+## Тестирование
+
+### Запуск
+
+Для запуска тестов используйте команду  
+``` 
+poetry run pytest --cov 
+```
+### Требования
+Для прохождения тестов необходимо наличие pytest и pytest-cov.
+
+### Модули
+
+1. conftest.py
+
+Содержит фикстуры, предоставляющие тестовые данные для списков словарей.
+
+2. test_masks.py
+
+Содержит тесты для функций get_mask_card_number и get_mask_account
+
+3. test_processing.py
+
+Содержит тесты для функций filter_by_state и sort_by_date
+
+4. test_widget.py
+
+Содержит тесты для функций mask_account_card и get_date
+
+### Покрытие
+Текущее покрытие кода составляет ~98%.
+
 
 ## Использование
 **Пример использования функций**
