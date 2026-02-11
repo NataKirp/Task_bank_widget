@@ -12,7 +12,7 @@ Python >= 3.14
 ## Установка
 1. Клонируйте репозиторий:
     ```
-    git clone https://github.com/NataKirp/Task_bank_widget.git@github.com:NataKirp/Task_bank_widget.git
+    git clone https://github.com/NataKirp/task_bank_widget.git
     ```
 2. Перейдите в папку проекта:
     ```
