@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.fixture
-def transactions():
+def transactions_id_state_date():
     """Возвращает список транзакций"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -81,3 +81,7 @@ def transactions_same_date():
         {"id": 594226727, "state": "CANCELED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
     ]
+
+@pytest.fixture
+def transactions_USD():
+    """Возвращает список транзакций  """
