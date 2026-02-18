@@ -1,3 +1,5 @@
+from locale import currency
+
 import pytest
 
 from data.transactions_input import transactions
@@ -18,15 +20,14 @@ def test_filter_by_currency_valid_input(transactions_usd):
 
 # Тестирование работы функции при отсутствии входных данных
 def test_filter_by_currency_empty_list():
-    if not transactions:
-        result = list(filter_by_currency(transactions, "USD"))
-        assert result == []
+    result = list(filter_by_currency([], "USD"))
+    assert result == []
 
 
 # Тестирование работы функции при отсутствии заданной валюты в списке
 def test_filter_by_currency_invalid_currency():
-    result = list(filter_by_currency(transactions, "EUR"))
-    assert result == []
+    with pytest.raises(ValueError):
+        list(filter_by_currency(transactions, ''))
 
 
 # Тестирование работы функции с некорректными типами данных
@@ -37,6 +38,7 @@ def test_filter_by_currency_wrong_type():
         list(filter_by_currency([1, 2, 3], "USD"))
 
 
+
 # Тестирование вывода описания каждой операции из списка транзакций
 def test_transaction_descriptions_valid_input(operation_descriptions):
     result = list(transaction_descriptions(transactions))
@@ -45,23 +47,16 @@ def test_transaction_descriptions_valid_input(operation_descriptions):
 
 # Тестирование работы функции при отсутствии входных данных
 def test_transaction_descriptions_empty_list():
-    if not transactions:
-        result = list(transaction_descriptions(transactions))
-        assert result == []
-
-
-# Тестирование работы функции с некорректными типами данных
-def test_transaction_descriptions_wrong_type():
-    transactions_not_list = "not a list"
-    with pytest.raises(ValueError):
-        list(transaction_descriptions(transactions_not_list))
+    result = list(transaction_descriptions([]))
+    assert result == []
 
 
 # Тестирование работы функции с некорректными типами данных
 def test_transaction_descriptions_dict_in_list():
-    transactions_not_dict = [{"id": 1}, "not a dict"]
     with pytest.raises(ValueError):
-        list(transaction_descriptions(transactions_not_dict))
+        list(transaction_descriptions([{"id": 1}, "not a dict"]))
+    with pytest.raises(ValueError):
+        list(transaction_descriptions("not a list"))
 
 
 # Тестирование генерации номеров карт в заданном диапазоне

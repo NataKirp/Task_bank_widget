@@ -16,9 +16,9 @@ def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
         raise TypeError("Неправильный формат исходных данных. Ожидается список словарей")
     if not isinstance(currency_name, str) or not currency_name.strip():
         raise ValueError("Валюта операции отсутствует или у нее неверный тип")
-    if not transactions:
+    if not list_of_dicts:
         print("Список транзакций пуст")
-        return transactions
+        return []
 
     for item in list_of_dicts:
         try:
@@ -42,9 +42,9 @@ def transaction_descriptions(list_of_dicts: list[dict]):
         raise ValueError(
             "Неправильный формат исходных данных. Ожидается список словарей"
         )
-    if not transactions:
+    if not list_of_dicts:
         print("Список транзакций пуст")
-        return transactions
+        return []
 
     for i in list_of_dicts:
         if "description" in i:
