@@ -181,6 +181,7 @@ for _ in range(2):
 
 #### Функция-генератор transaction_descriptions
 Возвращает описание каждой операции из списка транзакций
+
 **Пример использования функции**
 ```
 descriptions = transaction_descriptions(transactions)
@@ -195,6 +196,7 @@ for _ in range(5):
 ```
 #### Функция-генератор card_number_generator
 Генерирует номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999
+
 **Пример использования функции**
 ```
 for card_number in card_number_generator(1, 5):
@@ -209,6 +211,7 @@ for card_number in card_number_generator(1, 5):
 ### Модуль decorators
 #### Декоратор log
 Логирует выполнение функций и записывает результат в файл, либо выводит в консоль
+
 **Пример использования функции**
 ```
 @log(filename="mylog.txt")
@@ -229,29 +232,17 @@ poetry run pytest --cov
 
 ### Модули
 
-1. conftest.py
-
-Содержит фикстуры, предоставляющие тестовые данные для списков словарей.
-
-2. test_masks.py
-
-Содержит тесты для функций get_mask_card_number и get_mask_account
-
-3. test_processing.py
-
-Содержит тесты для функций filter_by_state и sort_by_date
-
-4. test_widget.py
-
-Содержит тесты для функций mask_account_card и get_date
-
-5. test_generators.py
-
-Содержит тесты для функций filter_by_currency, transaction_descriptions, card_number_generator
+| Название           | Что содержит                                                                          |
+|--------------------|---------------------------------------------------------------------------------------|
+| conftest.py        | Фикстуры, предоставляющие тестовые данные для списков словарей                        |
+| test_masks.py      | Тесты для функций get_mask_card_number и get_mask_account                             |
+| test_processing.py | Тесты для функций filter_by_state и sort_by_date                                      |
+| test_widget.py     | Тесты для функций mask_account_card и get_date                                        |
+| test_generators.py | Тесты для функций filter_by_currency, transaction_descriptions, card_number_generator |
+| test_decorators.py | Тесты для декоратора log                                                              |
 
 ### Покрытие
 Текущее покрытие кода составляет ~99%.
-
 
 ## Использование
 **Пример использования функций**
