@@ -206,6 +206,16 @@ for card_number in card_number_generator(1, 5):
     0000 0000 0000 0004
     0000 0000 0000 0005
 ```
+### Модуль decorators
+#### Декоратор log
+Логирует выполнение функций и записывает результат в файл, либо выводит в консоль
+**Пример использования функции**
+```
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return x + y
+my_function(1, 2)
+```
 ## Тестирование
 
 ### Запуск
@@ -240,7 +250,7 @@ poetry run pytest --cov
 Содержит тесты для функций filter_by_currency, transaction_descriptions, card_number_generator
 
 ### Покрытие
-Текущее покрытие кода составляет ~95%.
+Текущее покрытие кода составляет ~99%.
 
 
 ## Использование
