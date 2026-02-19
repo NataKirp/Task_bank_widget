@@ -1,6 +1,6 @@
 from typing import Generator
 
-from data.transactions_input import transactions
+# from data.transactions_input import transactions
 
 
 def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
@@ -37,7 +37,7 @@ def transaction_descriptions(list_of_dicts: list[dict]):
     :return: Значение по ключу "description" (содержание операции)
     """
     if not isinstance(list_of_dicts, list) or not all(
-        isinstance(i, dict) for i in list_of_dicts
+            isinstance(i, dict) for i in list_of_dicts
     ):
         raise ValueError(
             "Неправильный формат исходных данных. Ожидается список словарей"
@@ -75,17 +75,15 @@ def card_number_generator(start: int, stop: int) -> Generator[str]:
         card_num = " ".join([card_num[i:i + 4] for i in range(0, 16, 4)])
         yield card_num
 
-
-#
 # if __name__ == "__main__":
 #
 #     usd_transactions = filter_by_currency(transactions, "USD")
 #     for _ in range(5):
-# print(next(usd_transactions))
+#         print(next(usd_transactions))
 #
-# descriptions = transaction_descriptions(transactions)
-# for _ in range(5):
-#     print(next(descriptions))
-# #
-# for card_number in card_number_generator(-10, -5):
-#     print(card_number)
+#     descriptions = transaction_descriptions(transactions)
+#     for _ in range(5):
+#      print(next(descriptions))
+#
+#     for card_number in card_number_generator(-10, -5):
+#         print(card_number)

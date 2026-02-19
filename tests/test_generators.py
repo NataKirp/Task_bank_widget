@@ -1,13 +1,8 @@
-from locale import currency
-
 import pytest
 
 from data.transactions_input import transactions
-from src.generators import (
-    card_number_generator,
-    filter_by_currency,
-    transaction_descriptions,
-)
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
 
 
 # Тестирование фильтрации операций по заданной валюте
@@ -36,7 +31,6 @@ def test_filter_by_currency_wrong_type():
         list(filter_by_currency("not a list", "USD"))
     with pytest.raises(TypeError):
         list(filter_by_currency([1, 2, 3], "USD"))
-
 
 
 # Тестирование вывода описания каждой операции из списка транзакций
