@@ -3,7 +3,7 @@ from typing import Any, Callable, Optional
 
 
 def log(
-    filename: Optional[str] = None,
+        filename: Optional[str] = None,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Декоратор для логирования выполнения функции.
@@ -34,7 +34,10 @@ def log(
                 f"Конец выполнения функции {func.__name__}: {formatted_end_time}\n"
                 f"{func.__name__} ok. Результат: {result}"
                 if text_error == ""
-                else f"{func.__name__} error: {text_error}. Inputs: {args}, {kwargs}"
+                else
+                f"Начало выполнения функции {func.__name__}: {formatted_start_time}\n"
+                f"Конец выполнения функции {func.__name__}: {formatted_end_time}\n"
+                f"{func.__name__} error: {text_error}. Inputs: {args}, {kwargs}"
             )
             if filename is None:
                 print(log_text)
@@ -52,4 +55,4 @@ def my_function(x, y):
     return x / y
 
 
-my_function(2, 1)
+my_function(2, 0)

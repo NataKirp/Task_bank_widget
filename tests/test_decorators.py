@@ -11,7 +11,7 @@ def test_log_errors(capsys):
 
     my_function(2, 0)
     captured = capsys.readouterr()
-    assert "Результат выполнения функции my_function: division by zero. Inputs: (2, 0), {}" in captured.out
+    assert "my_function error: division by zero. Inputs: (2, 0), {}" in captured.out
 
 
 # Тестирование вывода в консоль
@@ -20,11 +20,11 @@ def test_log_to_console(capsys):
     def my_function(x, y):
         return x + y
 
-    my_function(1, 2)
+    my_function(2, 1)
     captured = capsys.readouterr()
     assert "Начало выполнения функции my_function:" in captured.out
     assert "Конец выполнения функции my_function:" in captured.out
-    assert "Результат выполнения функции my_function: ok. Inputs: (1, 2), {}" in captured.out
+    assert "my_function ok. Результат: 3" in captured.out
 
 
 # Тестирование записи в файл
@@ -35,9 +35,9 @@ def test_log_to_file(tmp_path: pathlib.Path):
     def my_function(x, y):
         return x + y
 
-    my_function(1, 2)
+    my_function(2, 1)
     with open(filename, 'r', encoding='utf-8') as file:
         log_txt = file.read()
         assert "Начало выполнения функции my_function:" in log_txt
         assert "Конец выполнения функции my_function:" in log_txt
-        assert "Результат выполнения функции my_function: ok. Inputs: (1, 2), {}" in log_txt
+        assert "my_function ok. Результат: 3" in log_txt
