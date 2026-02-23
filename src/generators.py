@@ -1,6 +1,6 @@
 from typing import Generator
 
-from data.transactions_input import transactions
+# from data.transactions_input import transactions
 
 
 def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
@@ -16,9 +16,9 @@ def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
         raise TypeError("Неправильный формат исходных данных. Ожидается список словарей")
     if not isinstance(currency_name, str) or not currency_name.strip():
         raise ValueError("Валюта операции отсутствует или у нее неверный тип")
-    if not transactions:
+    if not list_of_dicts:
         print("Список транзакций пуст")
-        return transactions
+        return []
 
     for item in list_of_dicts:
         try:
@@ -37,14 +37,14 @@ def transaction_descriptions(list_of_dicts: list[dict]):
     :return: Значение по ключу "description" (содержание операции)
     """
     if not isinstance(list_of_dicts, list) or not all(
-        isinstance(i, dict) for i in list_of_dicts
+            isinstance(i, dict) for i in list_of_dicts
     ):
         raise ValueError(
             "Неправильный формат исходных данных. Ожидается список словарей"
         )
-    if not transactions:
+    if not list_of_dicts:
         print("Список транзакций пуст")
-        return transactions
+        return []
 
     for i in list_of_dicts:
         if "description" in i:
@@ -75,17 +75,15 @@ def card_number_generator(start: int, stop: int) -> Generator[str]:
         card_num = " ".join([card_num[i:i + 4] for i in range(0, 16, 4)])
         yield card_num
 
-
-#
 # if __name__ == "__main__":
 #
 #     usd_transactions = filter_by_currency(transactions, "USD")
 #     for _ in range(5):
-# print(next(usd_transactions))
+#         print(next(usd_transactions))
 #
-# descriptions = transaction_descriptions(transactions)
-# for _ in range(5):
-#     print(next(descriptions))
-# #
-# for card_number in card_number_generator(-10, -5):
-#     print(card_number)
+#     descriptions = transaction_descriptions(transactions)
+#     for _ in range(5):
+#      print(next(descriptions))
+#
+#     for card_number in card_number_generator(-10, -5):
+#         print(card_number)
