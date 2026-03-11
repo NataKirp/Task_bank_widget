@@ -14,22 +14,21 @@ def load_operations(file_path: str) -> list[dict]:
     """
     utils_logger.info('Начало работы функции load_operations')
     if not os.path.exists(file_path):
-        utils_logger.warning('Файл не найден')
+        utils_logger.error(f'Файл {file_path} не найден')
         print('Файл не найден')
         return []
     elif os.path.getsize(file_path) == 0:
-        utils_logger.warning('Файл пуст')
+        utils_logger.warning(f'Файл {file_path} пуст')
         print('Файл пуст')
         return []
     else:
-        utils_logger.info(f'Запись данных в файл {file_path}')
         with open(file_path, encoding='utf-8') as f:
             data = json.load(f)
-
             if not isinstance(data, list):
-                utils_logger.warning('Файл содержит не список')
+                utils_logger.warning(f'Файл {file_path} содержит не список')
                 print('Файл содержит не список')
                 return []
+    utils_logger.info(f'Файл {file_path} успешно прочитан')
     utils_logger.info('Вывод словаря с данными о транзакциях')
     utils_logger.info('Завершение работы функции load_operations')
     return data
