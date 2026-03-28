@@ -282,7 +282,7 @@ from src.masks import get_mask_card_number, get_mask_account
 mask_number = get_mask_card_number("7000792289606361")
 
 # Маскировка номера счета
-mask_accunt = get_mask_account("73654108430135874305")
+mask_account = get_mask_account("73654108430135874305")
 
 from src.widget import mask_account_card, get_date
 
