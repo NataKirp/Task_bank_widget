@@ -1,6 +1,7 @@
 from unittest.mock import mock_open, patch
 
-from src.utils import load_operations
+from src.utils import (load_operations, process_bank_operations,
+                       process_bank_search)
 
 
 # Тестирование работы функции при отсутствии JSON-файла
@@ -36,3 +37,75 @@ def test_load_operations_not_list(mock_open, mock_getsize, mock_exists):
     mock_file = mock_open.return_value.__enter__.return_value  # имитирует with open
     mock_file.read.return_value = '{"key": "value"}'  # вызов метода read возвращает словарь
     assert load_operations('test.json') == []
+
+
+def test_process_bank_search():
+    # Есть операции, подходящие под описание
+    data = [
+        {'description': 'Test operation 1'},
+        {'description': 'Another test operation'},
+        {'description': 'Not matching'}
+    ]
+    search = 'test'
+    expected = [
+        {'description': 'Test operation 1'},
+        {'description': 'Another test operation'}
+    ]
+    assert process_bank_search(data,
+                               search) == expected, f"Expected {expected} but got {process_bank_search(data, search)}"
+
+    # Нет операций, подходящих под описание
+    data = [
+        {'description': 'Operation 1'},
+        {'description': 'Another operation'}
+    ]
+    search = 'test'
+    expected = []
+    assert process_bank_search(data,
+                               search) == expected, f"Expected {expected} but got {process_bank_search(data, search)}"
+
+    # Пустой список с исходными данными
+    data = []
+    search = 'test'
+    expected = []
+    assert process_bank_search(data,
+                               search) == expected, f"Expected {expected} but got {process_bank_search(data, search)}"
+
+    # Пустая строка поиска
+    data = [
+        {'description': 'Test operation 1'},
+        {'description': 'Another test operation'}
+    ]
+    search = ''
+    expected = data
+    assert process_bank_search(data,
+                               search) == expected, f"Expected {expected} but got {process_bank_search(data, search)}"
+
+    # Неправильное описание
+    data = [
+        {'id': 1},
+        {'description': 'Test operation'}
+    ]
+    search = 'test'
+    expected = [
+        {'description': 'Test operation'}
+    ]
+    assert process_bank_search(data,
+                               search) == expected, f"Expected {expected} but got {process_bank_search(data, search)}"
+
+
+def test_process_bank_operations():
+    # Пустой список с исходными данными
+    data = []
+    categories = ['category1', 'category2']
+    assert process_bank_operations(data, categories) == {}
+
+    # Нет подходящих категорий
+    data = [{'description': 'category3'}, {'description': 'category4'}]
+    categories = ['category1', 'category2']
+    assert process_bank_operations(data, categories) == {}
+
+    # Есть категории для группировки
+    data = [{'description': 'category1'}, {'description': 'category2'}, {'description': 'category1'}]
+    categories = ['category1', 'category2']
+    assert process_bank_operations(data, categories) == {'category1': 2, 'category2': 1}
