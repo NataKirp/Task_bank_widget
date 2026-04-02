@@ -1,20 +1,22 @@
-from typing import Generator
+from typing import Generator, Any
 
+
+# from src.file_readers import read_csv_file, read_excel_file
 # from data.transactions_input import transactions
 
 
-def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
+def filter_by_currency(list_of_dicts: list[dict], currency_code: str):
     """
     Принимает на вход список словарей, представляющих транзакции
     и возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной.
     :param list_of_dicts: Список словарей
-    :param currency_name: Ключ "name", по значению которого фильтруется список (валюта операции)
+    :param currency_code: Ключ "code", по значению которого фильтруется список (валюта операции)
     :return: Итератор с заданным значением ключа
     """
     if not isinstance(list_of_dicts, list) or not all(isinstance(item, dict) for item in list_of_dicts):
         raise TypeError("Неправильный формат исходных данных. Ожидается список словарей")
-    if not isinstance(currency_name, str) or not currency_name.strip():
+    if not isinstance(currency_code, str) or not currency_code.strip():
         raise ValueError("Валюта операции отсутствует или у нее неверный тип")
     if not list_of_dicts:
         print("Список транзакций пуст")
@@ -22,7 +24,18 @@ def filter_by_currency(list_of_dicts: list[dict], currency_name: str):
 
     for item in list_of_dicts:
         try:
-            if item["operationAmount"]["currency"]["name"] == currency_name:
+            # определяем путь к коду валюты, т.к. он отличается в json и csv
+            if "operationAmount" in item:
+                currency_key_path = ["operationAmount", "currency", "code"]  # для json
+            elif "currency_code" in item:
+                currency_key_path = ["currency_code"]  # для csv и excel
+            # итерация по ключам, чтобы найти нужное значение
+            current_value: Any = item
+            for key in currency_key_path:
+                current_value = current_value.get(key)
+                if current_value is None:
+                    break
+            if current_value == currency_code:
                 yield item
         except (KeyError, TypeError):
             # Пропуск словарей, в которых нет необходимых ключей или есть некорректные типы
@@ -77,13 +90,16 @@ def card_number_generator(start: int, stop: int) -> Generator[str]:
 
 # if __name__ == "__main__":
 #
-#     usd_transactions = filter_by_currency(transactions, "USD")
-#     for _ in range(5):
-#         print(next(usd_transactions))
+#     transactions_xlsx = read_excel_file('../data/transactions_excel.xlsx')
 #
-#     descriptions = transaction_descriptions(transactions)
-#     for _ in range(5):
-#      print(next(descriptions))
+#     # usd_transactions = filter_by_currency(transactions, "USD")
+#     # for _ in range(5):
+#     #     print(next(usd_transactions))
+#     rub_transactions = filter_by_currency(transactions_xlsx, "RUB")
+#     print(list(rub_transactions))
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(5):
+#  print(next(descriptions))
 #
-#     for card_number in card_number_generator(-10, -5):
-#         print(card_number)
+# for card_number in card_number_generator(-10, -5):
+#     print(card_number)
